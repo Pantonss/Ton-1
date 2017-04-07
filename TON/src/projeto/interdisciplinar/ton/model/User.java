@@ -1,5 +1,7 @@
 package projeto.interdisciplinar.ton.model;
 
+import java.util.Date;
+
 public class User {
 
 	private int idUser;
@@ -11,8 +13,15 @@ public class User {
 	private String adressUser;
 	private String cepUser;
 	private String passwordUser;
+	private Date registerDate;
 
-    public int getIdUser()
+    public Date getRegisterDate() {
+		return registerDate;
+	}
+	public void setRegisterDate(Date registerDate) {
+		this.registerDate = registerDate;
+	}
+	public int getIdUser()
     {
         return idUser;
     }
