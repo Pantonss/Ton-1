@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Cadastrar Usuarios</title>
+	<link type="text/css" rel="stylesheet" href="../CSS/main.css" />
+</h:head>
+<body>
+	<div style="text-align: center;">
+		<p:outputLabel value="TON"
+			style="font-size:30px; min-width:2000px;min-height:2000px ;
+			border: 5px inset;" />
+		<p:outputLabel value="CADASTRO USUARIO"
+			style="font-size:30px; min-width:2000px;min-height:2000px ;
+			border: 5px inset;" />
+	</div>
+	<h:form>
+		<p:messages id="messages" showDetail="false" autoUpdate="true"
+			closable="true" />
+	</h:form>
+	<p:separator />
+	<h:form>
+		<p:panelGrid>
+
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<p:inputText id="nome" value="#{userBean.user.firstName}"
+				pt:placeholder="Nome*" style="border:3px; width:218px;"
+				required="false" size="80"
+				validatorMessage="*Campo nome é obrigatorio">
+				<!-- <f:validateRequired validatorMessage="*Campo nome é obrigatorio" /> -->
+			</p:inputText>
+			<p:inputText id="sobrenome" value="#{userBean.user.lastName}"
+				pt:placeholder="Nome*" style="border:3px; width:218px;"
+				required="false" size="80"
+				validatorMessage="*Campo nome é obrigatorio">
+				<!-- <f:validateRequired validatorMessage="*Campo nome é obrigatorio" /> -->
+			</p:inputText>
+			<br />
+			<p:inputText id="email" value="#{userBean.user.emailUser}" size="8"
+				pt:placeholder="Email" required="false"
+				style=" margin-left: 300px;border: 3px;width:218px;"
+				validatorMessage="*Campo email é obrigatorio" />
+			<p:inputMask mask="(99)9999-9999" id="telefone"
+				values="#{userBean.user.phoneUser}"
+				pt:placeholder="Telefone"
+				style="margin-left:300px; border: 3px; width:218px;" />
+			<br />
+			<p:inputMask mask="(99)99999-9999" id="celular"
+				values="#{userBean.user.cellphoneUser}"
+				pt:placeholder="Celular"
+				style="margin-left:300px; border: 3px; width:218px;" />
+			<br />
+			<p:inputText id="endereco"
+				value="#{userBean.user.adressUser}"
+				pt:placeholder="Endereço" required="false"
+				style="margin-left:300px; border: 3px; width:218px;"
+				validatorMessage="*Campo endereco é obrigatório" />
+			<br />
+			<p:inputMask mask="99.999-999" id="cep"
+				value="#{userBean.user.cepUser}" pt:placeholder="CEP"
+				style="border-3px;margin-left:300px;">
+			</p:inputMask>
+			<br />
+			<p:password id="senha" value="#{userBean.user.passwordUser}"
+				pt:placeholder="SENHA" style="border:3px;" />
+			<br />
+			
+			<p:commandButton action="#{userBean.createUser()}"
+				value="CADASTRAR" disable="" required="False" style="border:5px;">
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="SIM" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="NAO" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+				
+			</p:commandButton>
+
+		</p:panelGrid>
+	</h:form>
+
+</body>
+</html>
