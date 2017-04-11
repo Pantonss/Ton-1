@@ -13,7 +13,9 @@ public class UserDAO implements IUsuario {
 
 	private static String sTabela = "REGISTER_USER";
 	private static String sCampos1 = "ID_USER, FIRSTNAME_USER, LASTNAME_USER, EMAIL_USER, PHONE_USER,"
-			+ " CELLPHONE_USER, ADRESS_USER, CEP_USER, PASSWORD_USER,REGISTER_DATE";
+			+ " CELLPHONE_USER, ADRESS_USER, CEP_USER, PASSWORD_USER, REGISTER_DATE";
+	private static String sCampos4 = "FIRSTNAME_USER, LASTNAME_USER, EMAIL_USER, PHONE_USER,"
+			+ " CELLPHONE_USER, ADRESS_USER, CEP_USER, PASSWORD_USER, REGISTER_DATE";
 	private static String sCampos2 = sCampos1.replaceAll(",", " = ?,") + " = ?";
 	private static String sCampos3 = sCampos2.replaceAll("[A-Z_]+ =", "");
 	private static String sOrdem = "ORDER BY UPPER(FIRSTNAME_USER)";
@@ -72,9 +74,15 @@ public class UserDAO implements IUsuario {
 		User tObject = null;
 		
 		try{
+			AcessDAO acessoDAO = new AcessDAO();
+			myConnection = acessoDAO.openConnection();
+			
+			
 			//Criando comando sql e jdbc
-			String sqlRecovery = "SELECT" + sCampos1 + "FROM" + sTabela + "WHERE EMAI_USER = ?";
+			String sqlRecovery = "SELECT " +sCampos4+ " FROM " + sTabela + " WHERE EMAIL_USER = ?";
+			System.out.println(""+sqlRecovery);
 			PreparedStatement tComandoJDBC = myConnection.prepareStatement(sqlRecovery);
+			
 			
 			//Colocando o parametro recebido no JDBC
 			tComandoJDBC.setString(1, emailUser);
@@ -94,7 +102,7 @@ public class UserDAO implements IUsuario {
 			tComandoJDBC.close();
 			
 		}
-		catch (SQLException tExcept)
+		catch (SQLException | ClassNotFoundException tExcept)
 		{
 			ExceptionUtil.mostrarErro(tExcept, "Erro no metodo de recuperação do objeto");
 		}
@@ -155,8 +163,8 @@ public class UserDAO implements IUsuario {
 
 		// Recuperando as informaÃ§Ãµes do ResultSet e colocando no objeto
 		// criado
-		user.setFirstName(tResultSet.getString("FIRST_NAME"));
-		user.setLastName(tResultSet.getString("LAST_NAME"));
+		user.setFirstName(tResultSet.getString("FIRSTNAME_USER"));
+		user.setLastName(tResultSet.getString("LASTNAME_USER"));
 		user.setEmailUser(tResultSet.getString("EMAIL_USER"));
 		user.setPhoneUser(tResultSet.getString("PHONE_USER"));
 		user.setCellphoneUser(tResultSet.getString("CELLPHONE_USER"));

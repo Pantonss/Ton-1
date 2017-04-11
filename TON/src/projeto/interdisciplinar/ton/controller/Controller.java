@@ -32,6 +32,7 @@ public class Controller {
            if (huser == null)
                return new DtoUser (false, "Usuario nulo");
            else
+        	   if (puser.getEmailUser() != user.getEmailUser())
         	   System.out.println("Cadastrado sucesso");
         	   System.out.println("chegou"+ user);
                return new DtoUser(true, "Cadastrado com sucesso");
