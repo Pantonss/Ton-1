@@ -8,6 +8,7 @@ public class User {
 	private String firstName;
 	private String lastName;
 	private String emailUser;
+	private String cpfUser;
 	private String phoneUser;
 	private String cellphoneUser;
 	private String adressUser;
@@ -93,6 +94,12 @@ public class User {
     {
         passwordUser = pPasswordUser;
     }
+	public String getCpfUser() {
+		return cpfUser;
+	}
+	public void setCpfUser(String cpfUser) {
+		this.cpfUser = cpfUser;
+	}
 
 
 

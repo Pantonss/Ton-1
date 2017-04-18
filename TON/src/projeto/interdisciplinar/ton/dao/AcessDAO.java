@@ -7,8 +7,8 @@ import java.sql.SQLException;
 public class AcessDAO {
 
 	private String dbUrl = "jdbc:oracle:thin:@localhost:1521:XE";
-	private String dbUser = "Daniel";
-	private String dbPassword = "123";
+	private String dbUser = "TONDBA";
+	private String dbPassword = "ADMTON123";
 	private  Connection myConnection;
 
 	public AcessDAO() throws ClassNotFoundException {

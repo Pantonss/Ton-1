@@ -2,30 +2,35 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
 
-<h:head>
-	<title>Pagina inicial</title>
-	<link type="text/css" rel="stylesheet" href="../CSS/main.css" />
-</h:head>
+<head>
+<p:tabMenu activeIndex="#{userBean.createUser()}">
+	<p:menuitem value="Home" outcome="/ui/menu/tabMenu"
+	icon="ui-icon-home"	>
+		<f:param name="i" value="0" />
+	</p:menuitem>
+	<p:menuitem value="" outcome="/ui/menu/tabMenu"
+		icon="ui-icon-search">
+		<f:param name="i" value="1" />
+	</p:menuitem>
+	<p:menuitem value="Documentation" outcome="/ui/menu/tabMenu"
+		icon="ui-icon-document">
+		<f:param name="i" value="2" />
+	</p:menuitem>
+	<p:menuitem value="Support" outcome="/ui/menu/tabMenu"
+		icon="ui-icon-wrench">
+		<f:param name="i" value="3" />
+	</p:menuitem>
+	<p:menuitem value="Social" outcome="/ui/menu/tabMenu"
+		icon="ui-icon-person">
+		<f:param name="i" value="4" />
+	</p:menuitem>
+</p:tabMenu>
+</head>
 <body>
-	<div id="menu">
-		<ul>
-			<li><a href="#">Home</a></li>
-			<li><a href="#">Categorias</a></li>
-			<li><a href="#">Missão</a></li>
-			<li><a href="#">Links</a></li>
-			<li><a href="#">Contato</a></li>
-
-		</ul>
-#menu ul {
-	padding:0px;
-	margin:0px;
-	background-color:#EDEDED;
-	list-style:none;
-};	
-#menu ul li {display: inline;}
-	</div>
 
 </body>
 </html>

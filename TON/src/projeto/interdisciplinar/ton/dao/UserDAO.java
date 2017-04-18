@@ -1,6 +1,7 @@
 package projeto.interdisciplinar.ton.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,10 +13,12 @@ import projeto.interdisciplinar.ton.util.ExceptionUtil;
 public class UserDAO implements IUsuario {
 
 	private static String sTabela = "REGISTER_USER";
-	private static String sCampos1 = "ID_USER, FIRSTNAME_USER, LASTNAME_USER, EMAIL_USER, PHONE_USER,"
+	private static String sCampos1 = "ID_USER, FIRSTNAME_USER, LASTNAME_USER, EMAIL_USER, CPF_USER, PHONE_USER,"
 			+ " CELLPHONE_USER, ADRESS_USER, CEP_USER, PASSWORD_USER, REGISTER_DATE";
 	private static String sCampos4 = "FIRSTNAME_USER, LASTNAME_USER, EMAIL_USER, PHONE_USER,"
 			+ " CELLPHONE_USER, ADRESS_USER, CEP_USER, PASSWORD_USER, REGISTER_DATE";
+	private static String sCampos5 = "FIRSTNAME_USER = ?, LASTNAME_USER = ?, EMAIL_USER = ?, CPF_USER = ?, PHONE_USER = ?,"
+			+ " CELLPHONE_USER = ?, ADRESS_USER = ?, CEP_USER = ?, PASSWORD_USER = ?";
 	private static String sCampos2 = sCampos1.replaceAll(",", " = ?,") + " = ?";
 	private static String sCampos3 = sCampos2.replaceAll("[A-Z_]+ =", "");
 	private static String sOrdem = "ORDER BY UPPER(FIRSTNAME_USER)";
@@ -47,6 +50,7 @@ public class UserDAO implements IUsuario {
 			tComandoJDBC.setString(i++, pUser.getFirstName());
 			tComandoJDBC.setString(i++, pUser.getLastName());
 			tComandoJDBC.setString(i++, pUser.getEmailUser());
+			tComandoJDBC.setString(i++, pUser.getCpfUser());
 			tComandoJDBC.setString(i++, pUser.getPhoneUser());
 			tComandoJDBC.setString(i++, pUser.getCellphoneUser());
 			tComandoJDBC.setString(i++, pUser.getAdressUser());
@@ -121,23 +125,29 @@ public class UserDAO implements IUsuario {
 			myConnection = acessoDAO.openConnection();
 
 			// Criando comando sql e jdbc
-			String sqlUpdate = "UPDATE REGISTER_USER" + sTabela + " SET " + sCampos2 + "WHERE" + "EMAIL_USER";
+			String sqlUpdate = "UPDATE " + sTabela + " SET " + sCampos2 + " WHERE EMAIL_USER = ?";
 			PreparedStatement tComandoJDBC = myConnection.prepareStatement(sqlUpdate);
+			System.out.println("Comando: " + sqlUpdate);
 
 			// Colocando os parametros recebidos no jdbc
 			int i = 1;
+			
+			tComandoJDBC.setInt(i++, puser.getIdUser());
 			tComandoJDBC.setString(i++, puser.getFirstName());
 			tComandoJDBC.setString(i++, puser.getLastName());
 			tComandoJDBC.setString(i++, puser.getEmailUser());
+			tComandoJDBC.setString(i++, puser.getCpfUser());
 			tComandoJDBC.setString(i++, puser.getPhoneUser());
 			tComandoJDBC.setString(i++, puser.getCellphoneUser());
 			tComandoJDBC.setString(i++, puser.getAdressUser());
 			tComandoJDBC.setString(i++, puser.getCepUser());
 			tComandoJDBC.setString(i++, puser.getPasswordUser());
-			tComandoJDBC.setDate(i++, new java.sql.Date(puser.getRegisterDate().getTime()));
+			tComandoJDBC.setDate(i++, (Date) puser.getRegisterDate());
+			tComandoJDBC.setString(i++, puser.getEmailUser());
+			
+			
 
 			// executando o comando de grava��o
-			tComandoJDBC.executeUpdate();
 
 			int tQtdeReg = tComandoJDBC.executeUpdate();
 
@@ -156,6 +166,41 @@ public class UserDAO implements IUsuario {
 		return tObject;
 
 	}
+	 public boolean delete(String email)
+	    {
+	        try
+	        {
+	        	
+	        	AcessDAO acessDAO = new AcessDAO();
+	        	myConnection = acessDAO.openConnection();
+	            // Criando o comando SQL e o comando JDBC
+	            String sqlDelete = "DELETE " + sTabela + " WHERE EMAIL_USER = ?" ;
+	            PreparedStatement tComandoJDBC = myConnection.prepareStatement(sqlDelete);
+
+	            // Colocando o parâmetro recebido no comando JDBC
+	            tComandoJDBC.setString(1, email);
+
+	            // Executando o comando de remoção e salvando o número de registros removidos
+	            int tQtdeReg = tComandoJDBC.executeUpdate();
+
+	            // Liberando os recursos JDBC
+	            tComandoJDBC.close();
+
+	            // Verificando se um registro foi removido
+	            if (tQtdeReg == 1)
+	            {
+	                // Indicado que a remoção foi efetuado com sucesso
+	                return true;
+	            }
+	        }
+	        catch (SQLException | ClassNotFoundException tExcept)
+	        {
+	            ExceptionUtil.mostrarErro(tExcept, "Erro no método de remoção do objeto");
+	        }
+
+	        // Se chegou nesse ponto a remoção não foi efetuada
+	        return false;
+	    }
 
 	private User carregarObjeto(ResultSet tResultSet) throws SQLException {
 		// Criando um novo objeto para armazenar as informações lidas

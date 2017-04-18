@@ -1,5 +1,7 @@
 package projeto.interdisciplinar.ton.model;
 
+import java.util.Date;
+
 public class Services {
 
     private int idService;
@@ -10,11 +12,13 @@ public class Services {
 	private Subcategories subcategoryService;
 	private String emailService;
 	private String phoneService;
-	private String callphoneService;
+	private String cellphoneService;
 	private String adressService;
 	private String cepService;
-	private String 	homeCare;
+	private boolean homeCare;
 	private String passwordservice;
+	private Date registerDate;
+	
     public int getIdService()
     {
         return idService;
@@ -79,13 +83,13 @@ public class Services {
     {
         phoneService = pPhoneService;
     }
-    public String getCallphoneService()
+    public String getCellphoneService()
     {
-        return callphoneService;
+        return cellphoneService;
     }
-    public void setCallphoneService(String pCallphoneService)
+    public void setCellphoneService(String pCellphoneService)
     {
-        callphoneService = pCallphoneService;
+        cellphoneService = pCellphoneService;
     }
     public String getAdressService()
     {
@@ -103,11 +107,11 @@ public class Services {
     {
         cepService = pCepService;
     }
-    public String getHomeCare()
+    public boolean getHomeCare()
     {
         return homeCare;
     }
-    public void setHomeCare(String pHomeCare)
+    public void setHomeCare(boolean pHomeCare)
     {
         homeCare = pHomeCare;
     }
@@ -119,6 +123,12 @@ public class Services {
     {
         passwordservice = pPasswordservice;
     }
+	public Date getRegisterDate() {
+		return registerDate;
+	}
+	public void setRegisterDate(Date registerDate) {
+		this.registerDate = registerDate;
+	}
 
 
 
